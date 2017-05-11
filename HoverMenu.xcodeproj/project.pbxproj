@@ -13,7 +13,18 @@
 		4BF3517C1EC483E100A80017 /* HoverGestureRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BF3517B1EC483E100A80017 /* HoverGestureRecognizer.swift */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		4B6C0A971EC49C25007EAB2C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4B6C0A931EC49C24007EAB2C /* HoverMenuDemo.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 4B6C0A7E1EC49C24007EAB2C;
+			remoteInfo = HoverMenuDemo;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
+		4B6C0A931EC49C24007EAB2C /* HoverMenuDemo.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = HoverMenuDemo.xcodeproj; path = HoverMenuDemo/HoverMenuDemo.xcodeproj; sourceTree = "<group>"; };
 		4BF3515F1EC470B000A80017 /* HoverMenu.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = HoverMenu.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4BF351621EC470B000A80017 /* HoverMenu.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HoverMenu.h; sourceTree = "<group>"; };
 		4BF351631EC470B000A80017 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -33,9 +44,18 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4B6C0A941EC49C24007EAB2C /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				4B6C0A981EC49C25007EAB2C /* HoverMenuDemo.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		4BF351551EC470B000A80017 = {
 			isa = PBXGroup;
 			children = (
+				4B6C0A931EC49C24007EAB2C /* HoverMenuDemo.xcodeproj */,
 				4BF351611EC470B000A80017 /* HoverMenu */,
 				4BF351601EC470B000A80017 /* Products */,
 			);
@@ -120,12 +140,28 @@
 			mainGroup = 4BF351551EC470B000A80017;
 			productRefGroup = 4BF351601EC470B000A80017 /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 4B6C0A941EC49C24007EAB2C /* Products */;
+					ProjectRef = 4B6C0A931EC49C24007EAB2C /* HoverMenuDemo.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				4BF3515E1EC470B000A80017 /* HoverMenu */,
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		4B6C0A981EC49C25007EAB2C /* HoverMenuDemo.app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = HoverMenuDemo.app;
+			remoteRef = 4B6C0A971EC49C25007EAB2C /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		4BF3515D1EC470B000A80017 /* Resources */ = {
@@ -200,6 +236,7 @@
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				TARGETED_DEVICE_FAMILY = "1,2";
+				VALID_ARCHS = arm64;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};
@@ -247,6 +284,7 @@
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
+				VALID_ARCHS = arm64;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};
@@ -272,6 +310,7 @@
 				SKIP_INSTALL = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
+				VALID_ARCHS = arm64;
 			};
 			name = Debug;
 		};
@@ -294,6 +333,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 3.0;
+				VALID_ARCHS = arm64;
 			};
 			name = Release;
 		};
@@ -316,6 +356,7 @@
 				4BF351691EC470B000A80017 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

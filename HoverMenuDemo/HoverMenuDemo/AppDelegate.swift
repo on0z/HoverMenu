@@ -1,6 +1,6 @@
 //
 //  AppDelegate.swift
-//  Demo
+//  HoverMenuDemo
 //
 //  Created by on0z on 2017/05/11.
 //  Copyright © 2017年 on0z. All rights reserved.
