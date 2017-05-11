@@ -1,0 +1,10 @@
+framework module HoverMenu {
+  umbrella header "HoverMenu.h"
+
+  export *
+  module * { export * }
+}
+
+module HoverMenu.Swift {
+    header "HoverMenu-Swift.h"
+}
