@@ -14,7 +14,8 @@ class ViewController: UIViewController{
     //変数を作成
     var menu: HoverMenuController?
     
-    var stackView: UIStackView!
+    @IBOutlet weak var stackView: UIStackView!
+    @IBOutlet weak var button: UIView!
     let hvSeg = UISegmentedControl(items: ["horizontal", "vertical"])
     let dirSeg = UISegmentedControl(items: ["up", "down", "left", "right"])
     
@@ -22,7 +23,6 @@ class ViewController: UIViewController{
         super.viewDidLoad()
         
         //menuを出すボタンを作成
-        let button = UIView(frame: CGRect(x: self.view.center.x-10, y: 400, width: 20, height: 20))
         button.backgroundColor = UIColor.black
         //ボタンにジェスチャを設定
         let gesture = HoverGestureRecognizer(target: self, action: #selector(self.hover(gesture:)))
@@ -32,14 +32,9 @@ class ViewController: UIViewController{
         hvSeg.selectedSegmentIndex = 0
         dirSeg.selectedSegmentIndex = 0
         
-        self.stackView = UIStackView(arrangedSubviews: [hvSeg, dirSeg])
-        self.stackView.axis = .vertical
-        self.stackView.alignment = .center
-        self.stackView.distribution = .equalSpacing
-        self.stackView.frame = CGRect(x: 0, y: 20, width: self.view.frame.size.width, height: hvSeg.frame.size.height + dirSeg.frame.size.height)
+        self.stackView.addArrangedSubview(hvSeg)
+        self.stackView.addArrangedSubview(dirSeg)
         self.view.addSubview(self.stackView)
-        self.view.centerXAnchor.constraint(equalTo: self.stackView.centerXAnchor).isActive = true
-        self.view.layoutIfNeeded()
     }
     
     // この関数内で必ずHoverMenuControllerのhoverAction(gesture:)メソッドを呼び出すこと。
@@ -62,6 +57,7 @@ class ViewController: UIViewController{
             self.present(menu!, animated: true, completion: nil)
         }
         if let menu = self.menu{
+            //↓必ず呼び出してください
             menu.hoverAction(gesture: gesture)
         }
     }
@@ -69,7 +65,11 @@ class ViewController: UIViewController{
 
 //必須
 extension ViewController: HoverMenuDelegate{
-    func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
-        return .none
+    func adaptivePresentationStyle(for controller: UIPresentationController, traitCollection: UITraitCollection) -> UIModalPresentationStyle {
+        if controller.presentedViewController is HoverMenuController{
+            //HoverMenuでは必ずnoneを返してください。iPhoneでもpopover表示をするためです。
+            return .none
+        }
+        return controller.presentedViewController.modalPresentationStyle
     }
 }

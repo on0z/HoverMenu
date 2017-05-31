@@ -14,8 +14,11 @@ public class HoverMenuController: UIViewController {
     private var stackView: UIStackView?
     public var buttons = [HoverMenuButton]()
     
+    /// 表示の軸。default: .horizontal
     public var axis: UILayoutConstraintAxis = .horizontal
+    /// 水平表示時の判定域
     public var judgeSide_horizontal: judgeSide_horizontal = .both
+    /// 垂直表示時の判定域
     public var judgeSide_vertical: judgeSide_vertical = .both
     
     private var hoverButton: HoverMenuButton?
@@ -70,7 +73,7 @@ public class HoverMenuController: UIViewController {
      HoverMenuのオプション
      - buttons: ボタン
      - axis: ボタンを並べる軸
-     - judgeSide_...: 反応の域(軸に応じてそれぞれ1つずつ)
+     - judgeSide_...: 反応の域(axisに応じてそれぞれ1つずつ)
      
  - Parameters:
      - buttons: ボタンを指定
@@ -260,7 +263,7 @@ public class HoverMenuController: UIViewController {
 
 public protocol HoverMenuDelegate: UIPopoverPresentationControllerDelegate{
     /// HoverMenuではUIModalPresentationStyle.noneを返してください。
-    func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle
+    func adaptivePresentationStyle(for controller: UIPresentationController, traitCollection: UITraitCollection) -> UIModalPresentationStyle
 }
 
 public enum HoverMenuPopoverArrowDirection: Int{
