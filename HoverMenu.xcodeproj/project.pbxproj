@@ -21,10 +21,18 @@
 			remoteGlobalIDString = 4B6C0A7E1EC49C24007EAB2C;
 			remoteInfo = HoverMenuDemo;
 		};
+		4BEE079C1F1B4D7C005A73E3 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4BEE07971F1B4D7B005A73E3 /* HoverMenuDemo2.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 4BEE07821F1B4D7B005A73E3;
+			remoteInfo = HoverMenuDemo2;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		4B6C0A931EC49C24007EAB2C /* HoverMenuDemo.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = HoverMenuDemo.xcodeproj; path = HoverMenuDemo/HoverMenuDemo.xcodeproj; sourceTree = "<group>"; };
+		4BEE07971F1B4D7B005A73E3 /* HoverMenuDemo2.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = HoverMenuDemo2.xcodeproj; path = HoverMenuDemo2/HoverMenuDemo2.xcodeproj; sourceTree = "<group>"; };
 		4BF3515F1EC470B000A80017 /* HoverMenu.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = HoverMenu.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4BF351621EC470B000A80017 /* HoverMenu.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HoverMenu.h; sourceTree = "<group>"; };
 		4BF351631EC470B000A80017 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -52,9 +60,18 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		4BEE07981F1B4D7B005A73E3 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				4BEE079D1F1B4D7C005A73E3 /* HoverMenuDemo2.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		4BF351551EC470B000A80017 = {
 			isa = PBXGroup;
 			children = (
+				4BEE07971F1B4D7B005A73E3 /* HoverMenuDemo2.xcodeproj */,
 				4B6C0A931EC49C24007EAB2C /* HoverMenuDemo.xcodeproj */,
 				4BF351611EC470B000A80017 /* HoverMenu */,
 				4BF351601EC470B000A80017 /* Products */,
@@ -145,6 +162,10 @@
 					ProductGroup = 4B6C0A941EC49C24007EAB2C /* Products */;
 					ProjectRef = 4B6C0A931EC49C24007EAB2C /* HoverMenuDemo.xcodeproj */;
 				},
+				{
+					ProductGroup = 4BEE07981F1B4D7B005A73E3 /* Products */;
+					ProjectRef = 4BEE07971F1B4D7B005A73E3 /* HoverMenuDemo2.xcodeproj */;
+				},
 			);
 			projectRoot = "";
 			targets = (
@@ -159,6 +180,13 @@
 			fileType = wrapper.application;
 			path = HoverMenuDemo.app;
 			remoteRef = 4B6C0A971EC49C25007EAB2C /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		4BEE079D1F1B4D7C005A73E3 /* HoverMenuDemo2.app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = HoverMenuDemo2.app;
+			remoteRef = 4BEE079C1F1B4D7C005A73E3 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */

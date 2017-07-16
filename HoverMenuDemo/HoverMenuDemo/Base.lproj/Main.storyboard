@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="rJV-sc-oNS">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -21,16 +21,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TV1-hI-J3v">
-                                <rect key="frame" x="177" y="373.5" width="20" height="20"/>
-                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="20" id="PqK-Ky-aDq"/>
-                                    <constraint firstAttribute="height" constant="20" id="ZQI-YX-tJc"/>
-                                </constraints>
-                            </view>
                             <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" axis="vertical" distribution="equalSpacing" alignment="center" spacing="3" translatesAutoresizingMaskIntoConstraints="NO" id="nXS-aU-kpu">
-                                <rect key="frame" x="0.0" y="20" width="375" height="200"/>
+                                <rect key="frame" x="0.0" y="64" width="375" height="200"/>
                                 <constraints>
                                     <constraint firstAttribute="height" relation="lessThanOrEqual" constant="200" id="72L-Rr-rYE"/>
                                 </constraints>
@@ -38,20 +30,71 @@
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="TV1-hI-J3v" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" constant="50" id="4XP-fd-9Az"/>
                             <constraint firstItem="nXS-aU-kpu" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="691-zU-FUq"/>
                             <constraint firstItem="nXS-aU-kpu" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="Euj-O3-1PB"/>
                             <constraint firstItem="nXS-aU-kpu" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="JrG-g3-jxy"/>
-                            <constraint firstItem="TV1-hI-J3v" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="Xtk-GC-GuE"/>
                             <constraint firstAttribute="trailing" secondItem="nXS-aU-kpu" secondAttribute="trailing" id="jk8-yF-ShM"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" id="cjG-6A-rUq"/>
                     <connections>
-                        <outlet property="button" destination="TV1-hI-J3v" id="4BU-Pl-e3O"/>
                         <outlet property="stackView" destination="nXS-aU-kpu" id="oYF-Gi-5is"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1079.2" y="137.18140929535232"/>
+        </scene>
+        <!--Second View Controller-->
+        <scene sceneID="Kkb-cO-gUy">
+            <objects>
+                <viewController storyboardIdentifier="SecondViewController" id="9DD-eK-s2J" customClass="SecondViewController" customModule="HoverMenuDemo" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="gwU-bo-lws"/>
+                        <viewControllerLayoutGuide type="bottom" id="zTV-rZ-LOM"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="01K-Vp-hvU">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TV1-hI-J3v">
+                                <rect key="frame" x="177" y="323" width="20" height="20"/>
+                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="20" id="PqK-Ky-aDq"/>
+                                    <constraint firstAttribute="height" constant="20" id="ZQI-YX-tJc"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="TV1-hI-J3v" firstAttribute="centerX" secondItem="01K-Vp-hvU" secondAttribute="centerX" id="iKJ-QB-1NL"/>
+                            <constraint firstItem="TV1-hI-J3v" firstAttribute="centerY" secondItem="01K-Vp-hvU" secondAttribute="centerY" id="kCn-P1-fe6"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="button" destination="TV1-hI-J3v" id="grv-Vd-9ry"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="fkq-5e-Xn0" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1794" y="137"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="iDM-4H-iV1">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="rJV-sc-oNS" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="xWY-0H-Wg2">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="iYG-yv-X9Q"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="pE9-mX-Skf" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="140" y="137.18140929535232"/>
         </scene>

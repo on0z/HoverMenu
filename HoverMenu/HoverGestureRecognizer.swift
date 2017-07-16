@@ -13,6 +13,10 @@ public class HoverGestureRecognizer: UIGestureRecognizer {
     var firstPoint: CGPoint?
     var moving: (x: Bool, y: Bool) = (x: true, y: true)
     
+    public init(target: HoverMenuController) {
+        super.init(target: target, action: #selector(target.hoverAction(gesture:)))
+    }
+    
     override public func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent) {
         defer { self.state = .began; self.moving = (true, true) }
         self.firstPoint = touches.first?.location(in: view)

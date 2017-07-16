@@ -11,65 +11,74 @@ import HoverMenu
 
 class ViewController: UIViewController{
     
-    //変数を作成
-    var menu: HoverMenuController?
-    
     @IBOutlet weak var stackView: UIStackView!
-    @IBOutlet weak var button: UIView!
+    
     let hvSeg = UISegmentedControl(items: ["horizontal", "vertical"])
     let dirSeg = UISegmentedControl(items: ["up", "down", "left", "right"])
+    let genButton = UIButton(type: UIButtonType.system)
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        //menuを出すボタンを作成
-        button.backgroundColor = UIColor.black
-        //ボタンにジェスチャを設定
-        let gesture = HoverGestureRecognizer(target: self, action: #selector(self.hover(gesture:)))
-        button.addGestureRecognizer(gesture)
-        self.view.addSubview(button)
-        
         hvSeg.selectedSegmentIndex = 0
         dirSeg.selectedSegmentIndex = 0
+        genButton.frame = CGRect(x: 0, y: 0, width: 50, height: 30)
+        genButton.setTitle("Generate", for: .normal)
+        genButton.addTarget(self, action: #selector(self.generate), for: .touchUpInside)
         
         self.stackView.addArrangedSubview(hvSeg)
         self.stackView.addArrangedSubview(dirSeg)
+        self.stackView.addArrangedSubview(genButton)
         self.view.addSubview(self.stackView)
     }
     
-    // この関数内で必ずHoverMenuControllerのhoverAction(gesture:)メソッドを呼び出すこと。
-    func hover(gesture: HoverGestureRecognizer){
-        // 必ず state == .began の時に表示すること。
-        if gesture.state == .began{
-            //メニュー内のボタンを設定
-            let button1 = HoverMenuButton(size: (50, 30),
-                                          setView: {$0.backgroundColor = UIColor.red},
-                                          handler: {_,_ in print("didTap Red!")})
-            
-            let button2 = HoverMenuButton(size: (50, 30),
-                                          setView: {$0.backgroundColor = UIColor.blue},
-                                          handler: {_,_ in print("didTap Blue!")})
-            let direction: HoverMenuPopoverArrowDirection = HoverMenuPopoverArrowDirection(rawValue: dirSeg.selectedSegmentIndex)!
-            self.menu = HoverMenuController(buttons: [button1, button2], direction: direction, delegate: self)
-            menu?.setSource(rect: CGRect(origin: gesture.location(in: self.view), size: CGSize.zero), view: self.view)
-            menu?.axis = UILayoutConstraintAxis(rawValue: hvSeg.selectedSegmentIndex)!
-            
-            self.present(menu!, animated: true, completion: nil)
-        }
-        if let menu = self.menu{
-            //↓必ず呼び出してください
-            menu.hoverAction(gesture: gesture)
-        }
+    func generate(){
+        let secondView = self.storyboard?.instantiateViewController(withIdentifier: "SecondViewController") as! SecondViewController
+        
+        //ボタンを作成
+        let button1 = HoverMenuButton(size: (50, 30),
+                                      setView: {$0.backgroundColor = UIColor.red},
+                                      handler: {_,_ in print("didTap Red!")})
+        let button2 = HoverMenuButton(size: (50, 30),
+                                      setView: {$0.backgroundColor = UIColor.blue},
+                                      handler: {_,_ in print("didTap Blue!")})
+        //メニューを作成
+        let menu = HoverMenuController(target: secondView, buttons: [button1, button2], delegate: secondView)
+        //方向を指定
+        menu.direction = HoverMenuPopoverArrowDirection(rawValue: self.dirSeg.selectedSegmentIndex)!
+        //軸を指定
+        menu.axis = UILayoutConstraintAxis(rawValue: self.hvSeg.selectedSegmentIndex)!
+        
+        secondView.menu = menu
+        self.navigationController?.pushViewController(secondView, animated: true)
     }
 }
 
-//必須
-extension ViewController: HoverMenuDelegate{
+class SecondViewController: UIViewController{
+    var menu: HoverMenuController?
+    
+    @IBOutlet weak var button: UIView!
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        //ボタンにジェスチャを設定
+        let gesture = HoverGestureRecognizer(target: menu!)
+        button.addGestureRecognizer(gesture)
+    }
+}
+
+extension SecondViewController: HoverMenuDelegate{
+    //必須
     func adaptivePresentationStyle(for controller: UIPresentationController, traitCollection: UITraitCollection) -> UIModalPresentationStyle {
         if controller.presentedViewController is HoverMenuController{
             //HoverMenuでは必ずnoneを返してください。iPhoneでもpopover表示をするためです。
             return .none
         }
         return controller.presentedViewController.modalPresentationStyle
+    }
+    
+    func hoverMenu(_ hoverMenu: HoverMenuController, willPresentBy gesture: HoverGestureRecognizer) {
+        hoverMenu.setSource(rect: CGRect(origin: gesture.location(in: self.view), size: CGSize.zero), view: self.view)
     }
 }

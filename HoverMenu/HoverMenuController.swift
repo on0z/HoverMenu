@@ -11,17 +11,49 @@ import UIKit
 @available(iOS 9.0, *)
 public class HoverMenuController: UIViewController {
     
+    public weak var target: UIViewController?
+    public weak var delegate: HoverMenuDelegate?
+    
     private var stackView: UIStackView?
-    public var buttons = [HoverMenuButton]()
+    public var buttons = [HoverMenuButton](){
+        didSet{
+            if oldValue == buttons { return }
+            if !isViewLoaded{ return }
+            self.view.frame.size = CGSize(width: self.width, height: self.height)
+            self.preferredContentSize = self.view.frame.size
+        }
+    }
     
     /// 表示の軸。default: .horizontal
-    public var axis: UILayoutConstraintAxis = .horizontal
+    public var axis: UILayoutConstraintAxis = .horizontal {
+        didSet{
+            if oldValue == axis { return }
+            if !isViewLoaded{ return }
+            self.stackView?.axis = self.axis
+            self.view.frame.size = CGSize(width: self.width, height: self.height)
+            self.preferredContentSize = self.view.frame.size
+        }
+    }
+    
+    /// 矢印の方向 default: .up
+    public var direction: HoverMenuPopoverArrowDirection = .up{
+        didSet{
+            if !isViewLoaded{ return }
+            self.popoverPresentationController?.permittedArrowDirections = direction.getDirection()
+            self.judgeSide_horizontal = [.down, .up, .both, .both][direction.rawValue]
+            self.judgeSide_vertical = [.both, .both, .right, .left][direction.rawValue]
+        }
+    }
+    
     /// 水平表示時の判定域
     public var judgeSide_horizontal: judgeSide_horizontal = .both
+    
     /// 垂直表示時の判定域
     public var judgeSide_vertical: judgeSide_vertical = .both
     
     private var hoverButton: HoverMenuButton?
+    
+    private var presentSource: presentSource = .unknown
     
     private var width: Int {
         get{
@@ -68,27 +100,31 @@ public class HoverMenuController: UIViewController {
         case right
     }
     
+    public enum presentSource{
+        case view
+        case barButton
+        case unknown
+    }
+    
 /** HoverMenuを作成する
     
-     HoverMenuのオプション
-     - buttons: ボタン
-     - axis: ボタンを並べる軸
-     - judgeSide_...: 反応の域(axisに応じてそれぞれ1つずつ)
+ HoverMenuのオプション
+    - buttons: ボタン
+    - direction: 矢印の向き default: .up
+    - axis: ボタンを並べる軸 default: .horizontal
+    - judgeSide_...: 反応の域(axisに応じてそれぞれ1つずつ)
      
  - Parameters:
+     - target: menuを表示するViewController
      - buttons: ボタンを指定
-     - direction: Popoverの矢の向きを指定
-     - delegate: delegateを指定してください
+     - delegate: delegateを指定
  
  */
-    public init(buttons: [HoverMenuButton], direction: HoverMenuPopoverArrowDirection, delegate: HoverMenuDelegate) {
+    public init(target: UIViewController?, buttons: [HoverMenuButton], delegate: HoverMenuDelegate) {
         super.init(nibName: nil, bundle: nil)
-        self.modalPresentationStyle = .popover
+        self.target = target
         self.buttons = buttons
-        self.popoverPresentationController?.permittedArrowDirections = direction.getDirection()
-        self.popoverPresentationController?.delegate = delegate
-        self.judgeSide_horizontal = [.down, .up, .both, .both][direction.rawValue]
-        self.judgeSide_vertical = [.both, .both, .right, .left][direction.rawValue]
+        self.delegate = delegate
     }
     
     required public init?(coder aDecoder: NSCoder) {
@@ -99,11 +135,13 @@ public class HoverMenuController: UIViewController {
     public func setSource(rect: CGRect, view: UIView){
         self.popoverPresentationController?.sourceRect = rect
         self.popoverPresentationController?.sourceView = view
+        self.presentSource = .view
     }
     
     /// Popoverの設定です。
     public func setSource(barButton: UIBarButtonItem){
         self.popoverPresentationController?.barButtonItem = barButton
+        self.presentSource = .barButton
     }
 
     override public func viewDidLoad() {
@@ -134,6 +172,9 @@ public class HoverMenuController: UIViewController {
             b.superVC = self
             self.stackView?.addArrangedSubview(b)
         }
+        
+        self.judgeSide_horizontal = [.down, .up, .both, .both][direction.rawValue]
+        self.judgeSide_vertical = [.both, .both, .right, .left][direction.rawValue]
     }
     
     private func hoverAction_horizontal(gesture: HoverGestureRecognizer){
@@ -252,6 +293,13 @@ public class HoverMenuController: UIViewController {
     }
     
     public func hoverAction(gesture: HoverGestureRecognizer){
+        if gesture.state == .began{
+            self.modalPresentationStyle = .popover
+            self.popoverPresentationController?.delegate = delegate
+            self.popoverPresentationController?.permittedArrowDirections = direction.getDirection()
+            self.delegate?.hoverMenu(self, willPresentBy: gesture)
+            self.target?.present(self, animated: true, completion: nil)
+        }
         if self.axis == .horizontal{
             hoverAction_horizontal(gesture: gesture)
         }else if self.axis == .vertical{
@@ -264,6 +312,12 @@ public class HoverMenuController: UIViewController {
 public protocol HoverMenuDelegate: UIPopoverPresentationControllerDelegate{
     /// HoverMenuではUIModalPresentationStyle.noneを返してください。
     func adaptivePresentationStyle(for controller: UIPresentationController, traitCollection: UITraitCollection) -> UIModalPresentationStyle
+    
+    func hoverMenu(_ hoverMenu: HoverMenuController, willPresentBy gesture: HoverGestureRecognizer)
+}
+
+extension HoverMenuDelegate{
+    func hoverMenu(_ hoverMenu: HoverMenuController, willPresentBy gesture: HoverGestureRecognizer){}
 }
 
 public enum HoverMenuPopoverArrowDirection: Int{
