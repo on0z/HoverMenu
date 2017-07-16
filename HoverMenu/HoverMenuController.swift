@@ -17,11 +17,25 @@ public class HoverMenuController: UIViewController {
     
     private var stackView: UIStackView?
     public var buttons = [HoverMenuButton](){
+        willSet{
+            if !isViewLoaded{ return }
+            guard let bs = self.stackView?.arrangedSubviews.reversed() else {
+                return
+            }
+            for b in bs{
+                self.stackView?.removeArrangedSubview(b)
+                b.removeFromSuperview()
+            }
+        }
         didSet{
-            if oldValue == buttons { return }
             if !isViewLoaded{ return }
             self.view.frame.size = CGSize(width: self.width, height: self.height)
             self.preferredContentSize = self.view.frame.size
+            
+            for b in buttons{
+                b.superVC = self
+                self.stackView?.addArrangedSubview(b)
+            }
         }
     }
     
@@ -233,6 +247,7 @@ public class HoverMenuController: UIViewController {
             self.dismiss(animated: true, completion: nil)
             guard let button = self.hoverButton else{ return }
             button.handler?(button, gesture)
+            hoverButton = nil
         }
     }
 
