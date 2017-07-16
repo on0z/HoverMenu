@@ -10,9 +10,10 @@
 		4B6C0A821EC49C24007EAB2C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B6C0A811EC49C24007EAB2C /* AppDelegate.swift */; };
 		4B6C0A841EC49C24007EAB2C /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B6C0A831EC49C24007EAB2C /* ViewController.swift */; };
 		4B6C0A871EC49C24007EAB2C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4B6C0A851EC49C24007EAB2C /* Main.storyboard */; };
-		4B6C0A891EC49C24007EAB2C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4B6C0A881EC49C24007EAB2C /* Assets.xcassets */; };
 		4B6C0A8C1EC49C24007EAB2C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4B6C0A8A1EC49C24007EAB2C /* LaunchScreen.storyboard */; };
 		4B6C0A9B1EC49C79007EAB2C /* HoverMenu.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B6C0A9A1EC49C79007EAB2C /* HoverMenu.framework */; };
+		4BEE07A21F1B75D2005A73E3 /* ViewController3.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BEE07A11F1B75D2005A73E3 /* ViewController3.swift */; };
+		4BEE07A41F1B765D005A73E3 /* ViewController2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BEE07A31F1B765D005A73E3 /* ViewController2.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -20,10 +21,11 @@
 		4B6C0A811EC49C24007EAB2C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4B6C0A831EC49C24007EAB2C /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		4B6C0A861EC49C24007EAB2C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		4B6C0A881EC49C24007EAB2C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		4B6C0A8B1EC49C24007EAB2C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		4B6C0A8D1EC49C24007EAB2C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4B6C0A9A1EC49C79007EAB2C /* HoverMenu.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HoverMenu.framework; path = "../../../../../Library/Developer/Xcode/DerivedData/HoverMenu-gybzhpqjolojkbdqbdoxlpocfndj/Build/Products/Debug-iphoneos/HoverMenu.framework"; sourceTree = "<group>"; };
+		4BEE07A11F1B75D2005A73E3 /* ViewController3.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController3.swift; sourceTree = "<group>"; };
+		4BEE07A31F1B765D005A73E3 /* ViewController2.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController2.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,8 +62,9 @@
 			children = (
 				4B6C0A811EC49C24007EAB2C /* AppDelegate.swift */,
 				4B6C0A831EC49C24007EAB2C /* ViewController.swift */,
+				4BEE07A31F1B765D005A73E3 /* ViewController2.swift */,
+				4BEE07A11F1B75D2005A73E3 /* ViewController3.swift */,
 				4B6C0A851EC49C24007EAB2C /* Main.storyboard */,
-				4B6C0A881EC49C24007EAB2C /* Assets.xcassets */,
 				4B6C0A8A1EC49C24007EAB2C /* LaunchScreen.storyboard */,
 				4B6C0A8D1EC49C24007EAB2C /* Info.plist */,
 			);
@@ -137,7 +140,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				4B6C0A8C1EC49C24007EAB2C /* LaunchScreen.storyboard in Resources */,
-				4B6C0A891EC49C24007EAB2C /* Assets.xcassets in Resources */,
 				4B6C0A871EC49C24007EAB2C /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -150,6 +152,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				4B6C0A841EC49C24007EAB2C /* ViewController.swift in Sources */,
+				4BEE07A41F1B765D005A73E3 /* ViewController2.swift in Sources */,
+				4BEE07A21F1B75D2005A73E3 /* ViewController3.swift in Sources */,
 				4B6C0A821EC49C24007EAB2C /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

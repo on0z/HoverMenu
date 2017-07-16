@@ -13,6 +13,7 @@ public class HoverMenuController: UIViewController {
     
     public weak var target: UIViewController?
     public weak var delegate: HoverMenuDelegate?
+    lazy var defaultDelegate = DefaultHoverMenuDelegate()
     
     private var stackView: UIStackView?
     public var buttons = [HoverMenuButton](){
@@ -54,6 +55,20 @@ public class HoverMenuController: UIViewController {
     private var hoverButton: HoverMenuButton?
     
     private var presentSource: presentSource = .unknown
+    
+    /// Popoverの設定です。
+    public var sourceRectView: (rect: CGRect, view: UIView)? {
+        didSet{
+            self.presentSource = .view
+        }
+    }
+    
+    /// Popoverの設定です。
+    public var sourceBarButton: UIBarButtonItem? {
+        didSet{
+            self.presentSource = .barButton
+        }
+    }
     
     private var width: Int {
         get{
@@ -100,7 +115,7 @@ public class HoverMenuController: UIViewController {
         case right
     }
     
-    public enum presentSource{
+    private enum presentSource{
         case view
         case barButton
         case unknown
@@ -120,28 +135,15 @@ public class HoverMenuController: UIViewController {
      - delegate: delegateを指定
  
  */
-    public init(target: UIViewController?, buttons: [HoverMenuButton], delegate: HoverMenuDelegate) {
+    public init(target: UIViewController?, buttons: [HoverMenuButton], delegate: HoverMenuDelegate?) {
         super.init(nibName: nil, bundle: nil)
         self.target = target
         self.buttons = buttons
-        self.delegate = delegate
+        self.delegate = delegate ?? defaultDelegate
     }
     
     required public init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
-    }
-    
-    /// Popoverの設定です。
-    public func setSource(rect: CGRect, view: UIView){
-        self.popoverPresentationController?.sourceRect = rect
-        self.popoverPresentationController?.sourceView = view
-        self.presentSource = .view
-    }
-    
-    /// Popoverの設定です。
-    public func setSource(barButton: UIBarButtonItem){
-        self.popoverPresentationController?.barButtonItem = barButton
-        self.presentSource = .barButton
     }
 
     override public func viewDidLoad() {
@@ -292,12 +294,22 @@ public class HoverMenuController: UIViewController {
         }
     }
     
-    public func hoverAction(gesture: HoverGestureRecognizer){
+    func hoverAction(gesture: HoverGestureRecognizer){
         if gesture.state == .began{
             self.modalPresentationStyle = .popover
             self.popoverPresentationController?.delegate = delegate
             self.popoverPresentationController?.permittedArrowDirections = direction.getDirection()
             self.delegate?.hoverMenu(self, willPresentBy: gesture)
+            
+            switch self.presentSource{
+            case .view:
+                self.popoverPresentationController?.sourceRect = sourceRectView!.rect
+                self.popoverPresentationController?.sourceView = sourceRectView?.view
+            case .barButton:
+                self.popoverPresentationController?.barButtonItem = sourceBarButton!
+            case .unknown:
+                fatalError("HoverMenu: popover表示用のsourceViewかbarbuttonItemを設定してください。")
+            }
             self.target?.present(self, animated: true, completion: nil)
         }
         if self.axis == .horizontal{
@@ -317,7 +329,27 @@ public protocol HoverMenuDelegate: UIPopoverPresentationControllerDelegate{
 }
 
 extension HoverMenuDelegate{
+    /// HoverMenuではUIModalPresentationStyle.noneを返してください。
+    func adaptivePresentationStyle(for controller: UIPresentationController, traitCollection: UITraitCollection) -> UIModalPresentationStyle {
+        if controller.presentedViewController is HoverMenuController{
+            //HoverMenuでは必ずnoneを返してください。iPhoneでもpopover表示をするためです。
+            return .none
+        }
+        return controller.presentedViewController.modalPresentationStyle
+    }
+    
     func hoverMenu(_ hoverMenu: HoverMenuController, willPresentBy gesture: HoverGestureRecognizer){}
+}
+
+class DefaultHoverMenuDelegate: NSObject, HoverMenuDelegate{
+    /// HoverMenuではUIModalPresentationStyle.noneを返してください。
+    func adaptivePresentationStyle(for controller: UIPresentationController, traitCollection: UITraitCollection) -> UIModalPresentationStyle {
+        if controller.presentedViewController is HoverMenuController{
+            //HoverMenuでは必ずnoneを返してください。iPhoneでもpopover表示をするためです。
+            return .none
+        }
+        return controller.presentedViewController.modalPresentationStyle
+    }
 }
 
 public enum HoverMenuPopoverArrowDirection: Int{

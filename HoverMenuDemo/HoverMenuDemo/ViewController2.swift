@@ -1,6 +1,6 @@
 //
-//  ViewController.swift
-//  HoverMenuDemo2
+//  ViewController2.swift
+//  HoverMenuDemo
 //
 //  Created by on0z on 2017/07/16.
 //  Copyright © 2017年 on0z. All rights reserved.
@@ -9,10 +9,9 @@
 import UIKit
 import HoverMenu
 
-class ViewController: UIViewController {
-    
+class ViewController2: UIViewController {
     var menu: HoverMenuController?
-
+    
     @IBOutlet weak var stackView: UIStackView!
     @IBOutlet weak var button: UIView!
     
@@ -47,15 +46,15 @@ class ViewController: UIViewController {
         let gesture = HoverGestureRecognizer(target: menu!)
         button.addGestureRecognizer(gesture)
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
+    
 }
 
-extension ViewController: HoverMenuDelegate{
+extension ViewController2: HoverMenuDelegate{
     //必須
     func adaptivePresentationStyle(for controller: UIPresentationController, traitCollection: UITraitCollection) -> UIModalPresentationStyle {
         if controller.presentedViewController is HoverMenuController{
@@ -64,14 +63,14 @@ extension ViewController: HoverMenuDelegate{
         }
         return controller.presentedViewController.modalPresentationStyle
     }
-    
+
     func hoverMenu(_ hoverMenu: HoverMenuController, willPresentBy gesture: HoverGestureRecognizer) {
         //方向を指定
-        menu?.direction = HoverMenuPopoverArrowDirection(rawValue: self.dirSeg.selectedSegmentIndex)!
+        hoverMenu.direction = HoverMenuPopoverArrowDirection(rawValue: self.dirSeg.selectedSegmentIndex)!
         //軸を指定
-        menu?.axis = UILayoutConstraintAxis(rawValue: self.hvSeg.selectedSegmentIndex)!
+        hoverMenu.axis = UILayoutConstraintAxis(rawValue: self.hvSeg.selectedSegmentIndex)!
         //popover用sourceRect, sourceViewを指定
-        hoverMenu.setSource(rect: CGRect(origin: gesture.location(in: self.view), size: CGSize.zero), view: self.view)
+        hoverMenu.sourceRectView = (rect: CGRect(origin: gesture.location(in: self.view), size: CGSize.zero), view: self.view)
     }
 }
 

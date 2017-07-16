@@ -79,6 +79,6 @@ extension SecondViewController: HoverMenuDelegate{
     }
     
     func hoverMenu(_ hoverMenu: HoverMenuController, willPresentBy gesture: HoverGestureRecognizer) {
-        hoverMenu.setSource(rect: CGRect(origin: gesture.location(in: self.view), size: CGSize.zero), view: self.view)
+        hoverMenu.sourceRectView = (rect: CGRect(origin: gesture.location(in: self.view), size: CGSize.zero), view: self.view)
     }
 }
