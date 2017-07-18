@@ -22,7 +22,7 @@ public class HoverMenuButton: UIView {
     - setView: ボタンの見た目を指定する
     - handler: ボタンを押された時に実行する処理を指定する。
  */
-    public init(size: (width: CGFloat, height: CGFloat), setView: ((UIView) -> Void), handler: @escaping ((HoverMenuButton, UIGestureRecognizer) -> Void)){
+    public init(size: (width: CGFloat, height: CGFloat) = (0, 0), setView: @escaping ((HoverMenuButton) -> Void), handler: @escaping ((HoverMenuButton, UIGestureRecognizer) -> Void)){
         super.init(frame: CGRect.zero)
         self.setSize(width: size.width, height: size.height)
         setView(self)
@@ -42,11 +42,20 @@ public class HoverMenuButton: UIView {
         fatalError("init(coder:) has not been implemented")
     }
 
-    func setSize(width: CGFloat, height: CGFloat){
+    var widthAnchorConstraint: NSLayoutConstraint?
+    var heightAnchorConstraint: NSLayoutConstraint?
+    
+    public func setSize(width: CGFloat, height: CGFloat){
         self.frame.size.width = width
         self.frame.size.height = height
-        self.widthAnchor.constraint(equalToConstant: width).isActive = true
-        self.heightAnchor.constraint(equalToConstant: height).isActive = true
+        
+        widthAnchorConstraint?.isActive = false
+        widthAnchorConstraint = self.widthAnchor.constraint(equalToConstant: width)
+        widthAnchorConstraint?.isActive = true
+        
+        heightAnchorConstraint?.isActive = false
+        heightAnchorConstraint = self.heightAnchor.constraint(equalToConstant: height)
+        heightAnchorConstraint?.isActive = true
     }
     
 }

@@ -117,6 +117,26 @@
                                             <segue destination="oda-F8-Ps8" kind="show" id="dCU-om-QUw"/>
                                         </connections>
                                     </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" textLabel="IXr-3G-py3" style="IBUITableViewCellStyleDefault" id="cYx-aD-OcA">
+                                        <rect key="frame" x="0.0" y="132" width="375" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="cYx-aD-OcA" id="B7T-8k-Oz2">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="on NavigationBar" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="IXr-3G-py3">
+                                                    <rect key="frame" x="15" y="0.0" width="345" height="43.5"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <segue destination="6Gx-cd-01y" kind="show" id="d7l-B1-sTb"/>
+                                        </connections>
+                                    </tableViewCell>
                                 </cells>
                             </tableViewSection>
                         </sections>
@@ -264,6 +284,24 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="nfR-gX-vRV" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1585" y="917"/>
+        </scene>
+        <!--View Controller4-->
+        <scene sceneID="A2W-AY-Vl1">
+            <objects>
+                <viewController id="6Gx-cd-01y" customClass="ViewController4" customModule="HoverMenuDemo" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="njw-jO-FYS"/>
+                        <viewControllerLayoutGuide type="bottom" id="RQg-MR-ISI"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Kkw-Nd-pcU">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="cl0-ti-ww1" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2297" y="916"/>
         </scene>
     </scenes>
 </document>

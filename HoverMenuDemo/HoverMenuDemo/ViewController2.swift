@@ -30,11 +30,23 @@ class ViewController2: UIViewController {
         
         self.menu = {
             //ボタンを作成
-            let button1 = HoverMenuButton(size: (50, 30),
-                                          setView: {$0.backgroundColor = UIColor.red},
+            let button1 = HoverMenuButton(size: (50,30),
+                                          setView: { $0.backgroundColor = UIColor.red },
                                           handler: {_,_ in print("didTap Red!")})
-            let button2 = HoverMenuButton(size: (50, 30),
-                                          setView: {$0.backgroundColor = UIColor.blue},
+            let button2 = HoverMenuButton(//size: (50,30),
+                                          setView: {
+                                            let label = { () -> UILabel in
+                                                let l = UILabel(frame: CGRect(x: 0, y: 0, width: 50, height: 30))
+                                                l.text = "ボタン2"
+                                                l.textColor = UIColor.white
+                                                l.sizeToFit()
+                                                return l
+                                            }()
+                                            $0.backgroundColor = UIColor.blue
+                                            $0.addSubview(label)
+                                            $0.setSize(width: label.frame.size.width, height: 30) // You can also set the size within the setView parameter. (But deprecated)
+                                            label.center = $0.center
+            },
                                           handler: {_,_ in print("didTap Blue!")})
             //メニューを作成
             let menu = HoverMenuController(target: self, buttons: [button1, button2], delegate: self)
@@ -73,4 +85,3 @@ extension ViewController2: HoverMenuDelegate{
         hoverMenu.sourceRectView = (rect: CGRect(origin: gesture.location(in: self.view), size: CGSize.zero), view: self.view)
     }
 }
-
