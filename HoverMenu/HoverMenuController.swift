@@ -193,22 +193,25 @@ public class HoverMenuController: UIViewController {
         self.judgeSide_vertical = [.both, .both, .right, .left][direction.rawValue]
     }
     
+    func releaseHover(){
+        self.hoverButton?.alpha = 1.0
+        self.hoverButton?.isHovered = false
+        self.hoverButton = nil
+    }
+    
     private func hoverAction_horizontal(gesture: HoverGestureRecognizer){
         if gesture.moving.x || gesture.moving.y{
             
             if self.judgeSide_horizontal != .both{
                 if self.judgeSide_horizontal == .down{
                     if gesture.location(in: self.view).y <= 0{
-                        self.hoverButton?.alpha = 1.0
-                        self.hoverButton?.isHovered = false
-                        self.hoverButton = nil
+                        releaseHover()
                         return
                     }
-                }else if self.judgeSide_horizontal == .up{
+                }
+                else if self.judgeSide_horizontal == .up{
                     if gesture.location(in: self.view).y >= self.view.frame.height{
-                        self.hoverButton?.alpha = 1.0
-                        self.hoverButton?.isHovered = false
-                        self.hoverButton = nil
+                        releaseHover()
                         return
                     }
                 }
@@ -232,28 +235,12 @@ public class HoverMenuController: UIViewController {
                     return
                 }
             }
-            self.hoverButton?.alpha = 1.0
-            self.hoverButton?.isHovered = false
-            self.hoverButton = nil
-        }
-        if gesture.state == .ended{
-            
-            guard let point = gesture.firstPoint else { self.dismiss(animated: true, completion: nil); return }
-            let difference_x = gesture.location(in: gesture.view).x - point.x
-            let difference_y = gesture.location(in: gesture.view).y - point.y
-            if (-10 <= difference_x && difference_x <= 10) && (-10 <= difference_y && difference_y <= 10){
-                return
-            }
-            self.dismiss(animated: true, completion: nil)
-            guard let button = self.hoverButton else{ return }
-            button.handler?(button, gesture)
-            hoverButton = nil
+            releaseHover()
         }
     }
 
     private func hoverAction_vertical(gesture: HoverGestureRecognizer){
         if gesture.moving.x || gesture.moving.y{
-            
             if self.judgeSide_vertical != .both{
                 if self.judgeSide_vertical == .right{
                     if gesture.location(in: self.view).x <= 0{
@@ -262,7 +249,8 @@ public class HoverMenuController: UIViewController {
                         self.hoverButton = nil
                         return
                     }
-                }else if self.judgeSide_vertical == .left{
+                }
+                else if self.judgeSide_vertical == .left{
                     if gesture.location(in: self.view).x >= self.view.frame.width{
                         self.hoverButton?.alpha = 1.0
                         self.hoverButton?.isHovered = false
@@ -290,26 +278,16 @@ public class HoverMenuController: UIViewController {
                     return
                 }
             }
-            self.hoverButton?.alpha = 1.0
-            self.hoverButton?.isHovered = false
-            self.hoverButton = nil
-        }
-        if gesture.state == .ended{
-            
-            guard let point = gesture.firstPoint else { self.dismiss(animated: true, completion: nil); return }
-            let difference_x = gesture.location(in: gesture.view).x - point.x
-            let difference_y = gesture.location(in: gesture.view).y - point.y
-            if (-10 <= difference_x && difference_x <= 10) && (-10 <= difference_y && difference_y <= 10){
-                return
-            }
-            self.dismiss(animated: true, completion: nil)
-            guard let button = self.hoverButton else{ return }
-            button.handler?(button, gesture)
-            
+            releaseHover()
         }
     }
     
     func hoverAction(gesture: HoverGestureRecognizer){
+        if gesture.state == .cancelled || gesture.state == .failed{
+            self.dismiss(animated: true, completion: nil)
+            releaseHover()
+            return
+        }
         if gesture.state == .began{
             self.modalPresentationStyle = .popover
             self.popoverPresentationController?.delegate = delegate
@@ -326,11 +304,28 @@ public class HoverMenuController: UIViewController {
                 fatalError("HoverMenu: popover表示用のsourceViewかbarbuttonItemを設定してください。")
             }
             self.target?.present(self, animated: true, completion: nil)
+            return
         }
-        if self.axis == .horizontal{
-            hoverAction_horizontal(gesture: gesture)
-        }else if self.axis == .vertical{
-            hoverAction_vertical(gesture: gesture)
+        if gesture.state == .changed{
+            if self.axis == .horizontal{
+                hoverAction_horizontal(gesture: gesture)
+            }else if self.axis == .vertical{
+                hoverAction_vertical(gesture: gesture)
+            }
+        }
+        if gesture.state == .ended{
+            guard let point = gesture.firstPoint else { self.dismiss(animated: true, completion: nil); return }
+            let difference_x = gesture.location(in: gesture.view).x - point.x
+            let difference_y = gesture.location(in: gesture.view).y - point.y
+            if (-10 <= difference_x && difference_x <= 10) && (-10 <= difference_y && difference_y <= 10){
+                return
+            }
+            self.dismiss(animated: true, completion: nil)
+            if let button = self.hoverButton{
+                button.handler?(button, gesture)
+            }
+            
+            releaseHover()
         }
     }
 
