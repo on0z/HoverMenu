@@ -282,7 +282,7 @@ public class HoverMenuController: UIViewController {
         }
     }
     
-    func hoverAction(gesture: HoverGestureRecognizer){
+    @objc func hoverAction(gesture: HoverGestureRecognizer){
         if gesture.state == .cancelled || gesture.state == .failed{
             self.dismiss(animated: true, completion: nil)
             releaseHover()
@@ -297,7 +297,7 @@ public class HoverMenuController: UIViewController {
             switch self.presentSource{
             case .view:
                 self.popoverPresentationController?.sourceRect = sourceRectView!.rect
-                self.popoverPresentationController?.sourceView = sourceRectView?.view
+                self.popoverPresentationController?.sourceView = sourceRectView!.view
             case .barButton:
                 self.popoverPresentationController?.barButtonItem = sourceBarButton!
             case .unknown:
@@ -314,12 +314,10 @@ public class HoverMenuController: UIViewController {
             }
         }
         if gesture.state == .ended{
-            guard let point = gesture.firstPoint else { self.dismiss(animated: true, completion: nil); return }
-            let difference_x = gesture.location(in: gesture.view).x - point.x
-            let difference_y = gesture.location(in: gesture.view).y - point.y
-            if (-10 <= difference_x && difference_x <= 10) && (-10 <= difference_y && difference_y <= 10){
+            if let source = gesture.view, source.point(inside: gesture.location(in: source), with: nil){
                 return
             }
+            
             self.dismiss(animated: true, completion: nil)
             if let button = self.hoverButton{
                 button.handler?(button, gesture)
