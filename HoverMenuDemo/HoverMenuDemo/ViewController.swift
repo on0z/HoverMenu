@@ -32,7 +32,7 @@ class ViewController: UIViewController{
         self.view.addSubview(self.stackView)
     }
     
-    func generate(){
+    @objc func generate(){
         let secondView = self.storyboard?.instantiateViewController(withIdentifier: "SecondViewController") as! SecondViewController
         
         //ボタンを作成

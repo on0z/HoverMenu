@@ -24,10 +24,20 @@ public class HoverGestureRecognizer: UIGestureRecognizer {
     
     override public func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent) {
         self.state = .changed
-        self.moving = (
-            Int(touches.first?.location(in: view).x ?? 0) / 2 != Int(touches.first?.previousLocation(in: view).x ?? 0) / 2,
-            Int(touches.first?.location(in: view).y ?? 0) / 2 != Int(touches.first?.previousLocation(in: view).y ?? 0) / 2
-        )
+        var movingx = false
+        var movingy = false
+        if Int(touches.first?.location(in: view).x ?? 0) / 2 != Int(touches.first?.previousLocation(in: view).x ?? 0) / 2{
+            movingx = true
+        }else{
+            movingx = false
+        }
+        if Int(touches.first?.location(in: view).y ?? 0) / 2 != Int(touches.first?.previousLocation(in: view).y ?? 0) / 2{
+            movingy = true
+        }else{
+            movingy = false
+        }
+        
+        self.moving = (movingx, movingy)
     }
     
     override public func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent) {
