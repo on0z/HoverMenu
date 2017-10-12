@@ -284,7 +284,7 @@ public class HoverMenuController: UIViewController {
     
     @objc func hoverAction(gesture: HoverGestureRecognizer){
         if gesture.state == .cancelled || gesture.state == .failed{
-            self.dismiss(animated: true, completion: nil)
+//            self.dismiss(animated: true, completion: nil)
             releaseHover()
             return
         }
