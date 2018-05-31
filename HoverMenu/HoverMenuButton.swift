@@ -22,7 +22,7 @@ public class HoverMenuButton: UIView {
     - setView: ボタンの見た目を指定する
     - handler: ボタンを押された時に実行する処理を指定する。
  */
-    public init(size: (width: CGFloat, height: CGFloat) = (0, 0), setView: @escaping ((HoverMenuButton) -> Void), handler: @escaping ((HoverMenuButton, UIGestureRecognizer) -> Void)){
+    public init(size: (width: CGFloat, height: CGFloat) = (0, 0), setView: ((HoverMenuButton) -> Void), handler: @escaping ((HoverMenuButton, UIGestureRecognizer) -> Void)){
         super.init(frame: CGRect.zero)
         self.setSize(width: size.width, height: size.height)
         setView(self)
