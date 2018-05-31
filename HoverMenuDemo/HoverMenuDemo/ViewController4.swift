@@ -9,6 +9,8 @@
 import UIKit
 import HoverMenu
 
+// menu with navigation bar button sample
+
 class ViewController4: UIViewController {
     
     var menu: HoverMenuController!

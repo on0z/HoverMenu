@@ -9,6 +9,8 @@
 import UIKit
 import HoverMenu
 
+/// Minimum code. static menu sample.
+
 class ViewController3: UIViewController {
     var menu: HoverMenuController?
     

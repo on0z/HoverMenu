@@ -9,6 +9,8 @@
 import UIKit
 import HoverMenu
 
+// Dynamic menu sample
+
 class ViewController2: UIViewController {
     var menu: HoverMenuController?
     
@@ -67,12 +69,15 @@ class ViewController2: UIViewController {
 }
 
 extension ViewController2: HoverMenuDelegate{
-    //必須
+    //Requires
     func adaptivePresentationStyle(for controller: UIPresentationController, traitCollection: UITraitCollection) -> UIModalPresentationStyle {
         if controller.presentedViewController is HoverMenuController{
             //HoverMenuでは必ずnoneを返してください。iPhoneでもpopover表示をするためです。
             return .none
         }
+        
+        // Your code...
+        
         return controller.presentedViewController.modalPresentationStyle
     }
 
