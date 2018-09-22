@@ -40,7 +40,7 @@ public class HoverMenuController: UIViewController {
     }
     
     /// 表示の軸。default: .horizontal
-    public var axis: UILayoutConstraintAxis = .horizontal {
+    public var axis: NSLayoutConstraint.Axis = .horizontal {
         didSet{
             if oldValue == axis { return }
             if !isViewLoaded{ return }
